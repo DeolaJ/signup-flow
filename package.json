@@ -2,9 +2,12 @@
   "name": "signup-flow",
   "version": "1.0.0",
   "description": "Multi-step sign up flow",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "yarn test"
+    "test": "yarn test",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,18 @@
   "bugs": {
     "url": "https://github.com/DeolaJ/signup-flow/issues"
   },
-  "homepage": "https://github.com/DeolaJ/signup-flow#readme"
+  "homepage": "https://github.com/DeolaJ/signup-flow#readme",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "@vitejs/plugin-react": "^1.2.0",
+    "typescript": "^4.5.5",
+    "vite": "^2.8.2"
+  }
 }
