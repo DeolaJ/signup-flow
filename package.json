@@ -1,0 +1,19 @@
+{
+  "name": "signup-flow",
+  "version": "1.0.0",
+  "description": "Multi-step sign up flow",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeolaJ/signup-flow.git"
+  },
+  "author": "Adeola Adeyemo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeolaJ/signup-flow/issues"
+  },
+  "homepage": "https://github.com/DeolaJ/signup-flow#readme"
+}
