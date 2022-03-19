@@ -190,7 +190,3 @@ export const NotificationBannerContainer = styled.div`
     animation-name: ${Toastify__slideOutRight};
   }
 `;
-
-export default {
-  NotificationBannerContainer,
-};
