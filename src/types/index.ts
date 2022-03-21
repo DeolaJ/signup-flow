@@ -5,12 +5,8 @@
 // TODO: Nullify types
 export type UserState = {
   user: LoggedInUserType | null;
-  roles: {
-    [key: string]: RoleType;
-  } | null;
-  users: {
-    [key: string]: UserType;
-  } | null;
+  roles: { [key: string]: RoleType[] } | null;
+  users: { [key: string]: UserType } | null;
   isLoggedIn: boolean;
 };
 
@@ -56,7 +52,7 @@ export type AdminType = {
 };
 
 export interface LoggedInUserType extends UserType {
-  roles?: RoleType;
+  roles?: RoleType[];
 }
 
 export type RoleType = {

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FormState, RoleType } from '../../types';
 
-const defaultState: FormState = {
+export const defaultState: FormState = {
   userID: '',
   userInfo: {},
   roles: {
