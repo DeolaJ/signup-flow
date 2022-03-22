@@ -21,6 +21,9 @@ describe('Creating User', () => {
         name: 'Adeola',
         emailAddress: 'adeola@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     };
     const newUserRoles: RoleType[] = Object.values(mockRoles);
     const newUserData = {
@@ -60,6 +63,9 @@ describe('Updating User', () => {
         name: 'Adeola',
         emailAddress: 'adeola@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     };
     const updatedUserRoles: RoleType[] = Object.values(mockRoles);
     const updatedUserData = {

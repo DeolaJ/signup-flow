@@ -44,6 +44,9 @@ export type UserType = {
   url?: string;
   fundingStage?: string;
   admin?: AdminType;
+  createdAt?: string;
+  updatedAt?: string;
+  verfied?: boolean;
 };
 
 export type AdminType = {

@@ -24,6 +24,9 @@ export const mockUserNotEmpty: UserState = {
         name: 'Adeola',
         emailAddress: 'adeola@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     },
     1234: {
       id: '1234',
@@ -37,6 +40,9 @@ export const mockUserNotEmpty: UserState = {
         name: 'Joseph',
         emailAddress: 'joseph@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     },
     12345: {
       id: '12345',
@@ -50,6 +56,9 @@ export const mockUserNotEmpty: UserState = {
         name: 'Joe',
         emailAddress: 'joe@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     },
   },
   roles: {
@@ -73,6 +82,9 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       name: 'Adeola',
       emailAddress: 'adeola@test.com',
     },
+    createdAt: Date.now.toString(),
+    updatedAt: Date.now.toString(),
+    verfied: true,
     roles: Object.values(mockRoles),
   },
   users: {
@@ -88,6 +100,9 @@ export const mockUserNotEmptyLoggedIn: UserState = {
         name: 'Adeola',
         emailAddress: 'adeola@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     },
     1234: {
       id: '1234',
@@ -101,6 +116,9 @@ export const mockUserNotEmptyLoggedIn: UserState = {
         name: 'Joseph',
         emailAddress: 'joseph@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     },
     12345: {
       id: '12345',
@@ -114,6 +132,9 @@ export const mockUserNotEmptyLoggedIn: UserState = {
         name: 'Joe',
         emailAddress: 'joe@test.com',
       },
+      createdAt: Date.now.toString(),
+      updatedAt: Date.now.toString(),
+      verfied: true,
     },
   },
   roles: {
