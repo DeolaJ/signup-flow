@@ -46,8 +46,8 @@ describe('Adding Roles', () => {
       location: 'CO',
       yearsOfExperience: 2,
       jobDescription: 'This is a test job description for Role ABCDEF',
-      createdAt: Date.now().toString(),
-      updatedAt: Date.now().toString(),
+      createdAt: new Date().toJSON(),
+      updatedAt: new Date().toJSON(),
     };
     expect(reducer(mockForm, addUserRole({ role: newRole }))).toEqual({
       ...mockForm,
@@ -71,8 +71,8 @@ describe('Editing existing Roles', () => {
       location: 'US',
       yearsOfExperience: 5,
       jobDescription: 'This is a test job description for Role A --- C',
-      createdAt: Date.now().toString(),
-      updatedAt: Date.now().toString(),
+      createdAt: new Date().toJSON(),
+      updatedAt: new Date().toJSON(),
     };
     expect(reducer(mockFormWithRoles, editUserRole({ role }))).toEqual({
       ...mockFormWithRoles,
