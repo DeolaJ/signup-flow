@@ -10,33 +10,24 @@ export function doSignupUser(
   userID: string
 ): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch, getState) => {
-    const toastId = toast.success('Creating account', {
-      autoClose: false,
-    });
+    const toastId = toast.loading('Creating account');
 
     const { users } = getState().user;
 
     const validUser = isUserValid(users, userID);
-    if (!validUser) {
-      toast.update(toastId, {
-        render: 'User already exists, please sign in',
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      });
+    if (validUser) {
+      toast.dismiss(toastId);
+      toast.error('User already exists, please sign in');
+      return;
     }
+
     try {
-      dispatch(createUser({ userInfo, userID }));
-      toast.update(toastId, {
-        render: 'Account Created',
-        type: toast.TYPE.SUCCESS,
-        autoClose: 2500,
-      });
+      dispatch(createUser({ userData: { userInfo }, userID }));
+      toast.dismiss(toastId);
+      toast.success('Account Created');
     } catch (error) {
-      toast.update(toastId, {
-        render: 'An error occurred. Please retry',
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      });
+      toast.dismiss(toastId);
+      toast.error('An error occurred. Please retry');
     }
   };
 }
@@ -45,58 +36,40 @@ export function doLoginUser(
   loginDetails: LoginDetailsType
 ): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch, getState) => {
-    const toastId = toast.success('Logging in...', {
-      autoClose: false,
-    });
+    const toastId = toast.loading('Logging in...');
 
     const { userID, adminEmail } = loginDetails;
     const { users } = getState().user;
 
     const validUser = isUserValid(users, userID);
     if (!validUser) {
-      toast.update(toastId, {
-        render: 'Invalid ID/Admin Email. Please try again',
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      });
+      toast.dismiss(toastId);
+      toast.error('Invalid ID/Admin Email. Please retry');
+      return;
     }
 
     try {
       dispatch(loginUser({ userID, adminEmail }));
-      toast.update(toastId, {
-        render: 'Successfully logged in',
-        type: toast.TYPE.SUCCESS,
-        autoClose: 2500,
-      });
+      toast.dismiss(toastId);
+      toast.success('Successfully logged in');
     } catch (error) {
-      toast.update(toastId, {
-        render: 'An error occurred. Please retry',
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      });
+      toast.dismiss(toastId);
+      toast.error('An error occurred. Please retry');
     }
   };
 }
 
 export function doLogoutUser(): ThunkAction<void, StateType, unknown, AnyAction> {
   return async (dispatch) => {
-    const toastId = toast.success('Logging out...', {
-      autoClose: false,
-    });
+    const toastId = toast.loading('Logging out...');
 
     try {
       dispatch(logoutUser());
-      toast.update(toastId, {
-        render: 'Successfully logged out',
-        type: toast.TYPE.SUCCESS,
-        autoClose: 2500,
-      });
+      toast.dismiss(toastId);
+      toast.success('Successfully logged out');
     } catch (error) {
-      toast.update(toastId, {
-        render: 'An error occurred. Please retry',
-        type: toast.TYPE.ERROR,
-        autoClose: 2500,
-      });
+      toast.dismiss(toastId);
+      toast.error('An error occurred. Please retry');
     }
   };
 }

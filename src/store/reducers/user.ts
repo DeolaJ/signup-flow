@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loadUserState, setUserState } from '../../helpers';
 import { LoggedInUserType, UserState } from '../../types';
 
 export const defaultState: UserState = {
@@ -8,29 +9,27 @@ export const defaultState: UserState = {
   roles: null,
 };
 
+const persistedUserState = loadUserState();
+
 const userSlice = createSlice({
   name: 'user',
-  initialState: defaultState,
+  initialState: persistedUserState || defaultState,
   reducers: {
     createUser: (state, action) => {
       const {
-        userData: { userInfo, roles },
+        userData: { userInfo },
         userID,
       } = action.payload;
       state.users = {
         ...state.users,
         [userID]: userInfo,
       };
-      state.roles = {
-        ...state.roles,
-        [userID]: roles,
-      };
       state.isLoggedIn = true;
       const loggedInUser = {
         ...userInfo,
-        roles,
       };
       state.user = loggedInUser;
+      setUserState(state);
     },
     modifyUser: (state, action) => {
       const {
@@ -51,6 +50,7 @@ const userSlice = createSlice({
           [userID]: roles,
         };
       }
+      setUserState(state);
     },
     loginUser: (state, action) => {
       const { userID, adminEmail } = action.payload;
@@ -63,10 +63,12 @@ const userSlice = createSlice({
         };
         state.user = loggedInUser;
       }
+      setUserState(state);
     },
     logoutUser: (state) => {
       state.isLoggedIn = false;
       state.user = null;
+      setUserState(state);
     },
   },
 });

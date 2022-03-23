@@ -8,7 +8,7 @@ export const mockForm: FormState = {
     companyName: 'Test Company',
     location: 'US',
     remoteWorkPolicy: '',
-    companySize: '100',
+    companySize: 100,
     url: 'https://test.com',
     fundingStage: 'Series A',
     admin: {
@@ -29,7 +29,7 @@ export const mockFormWithRoles: FormState = {
     companyName: 'Test Company',
     location: 'US',
     remoteWorkPolicy: '',
-    companySize: '100',
+    companySize: 100,
     url: 'https://test.com',
     fundingStage: 'Series A',
     admin: {
