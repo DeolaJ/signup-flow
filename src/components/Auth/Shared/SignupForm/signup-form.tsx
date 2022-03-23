@@ -6,6 +6,7 @@ import throttle from 'lodash/throttle';
 import isEqual from 'lodash/isEqual';
 
 import InputField from '../../../Shared/FormFields/InputField';
+import DropdownField from '../../../Shared/FormFields/Dropdown';
 import Loader from '../../../Shared/Loader';
 import SecondaryButton from '../../../Shared/Button/SecondaryButton';
 
@@ -16,6 +17,41 @@ import { doSignupUser } from '../../../../store/actions/user';
 import { FormContainer, InputContainer, FormError } from '../../../Shared/Form/form.styled';
 import { ErrorMessageType } from '../../../../types';
 import { isUserValid } from '../../../../helpers';
+
+const fundingStages = [
+  {
+    label: 'Pre-seed',
+    value: 'Pre-seed',
+  },
+  {
+    label: 'Seed',
+    value: 'Seed',
+  },
+  {
+    label: 'Series A',
+    value: 'Series A',
+  },
+  {
+    label: 'Series B',
+    value: 'Series B',
+  },
+  {
+    label: 'Series C',
+    value: 'Series C',
+  },
+  {
+    label: 'Series D',
+    value: 'Series D',
+  },
+  {
+    label: 'IPO',
+    value: 'IPO',
+  },
+  {
+    label: 'Others',
+    value: 'Others',
+  },
+];
 
 const SignupForm: FC = () => {
   const dispatch = useDispatch();
@@ -240,11 +276,11 @@ const SignupForm: FC = () => {
           </InputContainer>
 
           <InputContainer>
-            <InputField
+            <DropdownField
               label="Funding Stage"
               placeholder="Enter current funding stage"
               name="fundingStage"
-              type="text"
+              options={fundingStages}
               value={values.fundingStage}
               error={errorCheck('fundingStage', values.fundingStage, errors.fundingStage)}
               errorMessage={errorMessage('fundingStage', values.fundingStage, errors.fundingStage)}
