@@ -1,3 +1,5 @@
+import { ReactNode, Ref, CSSProperties } from 'react';
+
 //==============================================================================
 // State
 //==============================================================================
@@ -40,7 +42,7 @@ export type UserType = {
   companyName?: string;
   location?: string;
   remoteWorkPolicy?: string;
-  companySize?: string;
+  companySize?: number;
   url?: string;
   fundingStage?: string;
   admin?: AdminType;
@@ -86,4 +88,36 @@ export type ErrorType = {
 export type LoginDetailsType = {
   userID: string;
   adminEmail: string;
+};
+
+//==============================================================================
+// Button
+//==============================================================================
+
+export interface CustomStyleProperties extends CSSProperties {
+  [key: `--${string}`]: string | undefined;
+}
+
+export type ButtonProps = {
+  text: string | ReactNode;
+  size?: string;
+  className?: string;
+  style?: CustomStyleProperties;
+  disabled?: boolean;
+  type?: 'submit' | 'reset' | 'button';
+  onClick?: () => void;
+  buttonRef?: Ref<HTMLButtonElement>;
+  full?: boolean;
+};
+
+//==============================================================================
+// Form
+//==============================================================================
+
+export type ErrorMessageType = {
+  errorFields: string[];
+  errorMessages?: {
+    [key: string]: string;
+  };
+  hasError: false;
 };

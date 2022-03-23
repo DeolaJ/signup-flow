@@ -19,7 +19,7 @@ describe('Updating User Information', () => {
       companyName: 'Test Company - new',
       location: 'USA',
       remoteWorkPolicy: '',
-      companySize: '130',
+      companySize: 130,
       url: 'https://test.com',
       fundingStage: 'Series C',
       admin: {

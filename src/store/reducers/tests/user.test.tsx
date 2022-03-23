@@ -14,7 +14,7 @@ describe('Creating User', () => {
       companyName: 'Test Company A',
       location: 'US',
       remoteWorkPolicy: '',
-      companySize: '100',
+      companySize: 100,
       url: 'https://test.com',
       fundingStage: 'Series A',
       admin: {
@@ -23,12 +23,10 @@ describe('Creating User', () => {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verfied: false,
     };
-    const newUserRoles: RoleType[] = Object.values(mockRoles);
     const newUserData = {
       userInfo: newUser,
-      roles: newUserRoles,
     };
     expect(reducer(mockUser, createUser({ userData: newUserData, userID: 1 }))).toEqual({
       ...mockUser,
@@ -37,13 +35,8 @@ describe('Creating User', () => {
         ...mockUser.users,
         1: newUser,
       },
-      roles: {
-        ...mockUser.roles,
-        1: newUserRoles,
-      },
       user: {
         ...newUser,
-        roles: newUserRoles,
       },
     });
   });
@@ -56,7 +49,7 @@ describe('Updating User', () => {
       companyName: 'Test Company A --- C',
       location: 'USA',
       remoteWorkPolicy: '',
-      companySize: '120',
+      companySize: 120,
       url: 'https://test.com',
       fundingStage: 'Series B',
       admin: {

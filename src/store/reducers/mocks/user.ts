@@ -17,7 +17,7 @@ export const mockUserNotEmpty: UserState = {
       companyName: 'Test Company A',
       location: 'US',
       remoteWorkPolicy: '',
-      companySize: '100',
+      companySize: 100,
       url: 'https://test.com',
       fundingStage: 'Series A',
       admin: {
@@ -33,7 +33,7 @@ export const mockUserNotEmpty: UserState = {
       companyName: 'Test Company B',
       location: 'UK',
       remoteWorkPolicy: '',
-      companySize: '110',
+      companySize: 110,
       url: 'https://test.com',
       fundingStage: 'Series D',
       admin: {
@@ -49,7 +49,7 @@ export const mockUserNotEmpty: UserState = {
       companyName: 'Test Company C',
       location: 'CA',
       remoteWorkPolicy: '',
-      companySize: '30',
+      companySize: 30,
       url: 'https://test.com',
       fundingStage: 'Series B',
       admin: {
@@ -75,7 +75,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
     companyName: 'Test Company A',
     location: 'US',
     remoteWorkPolicy: '',
-    companySize: '100',
+    companySize: 100,
     url: 'https://test.com',
     fundingStage: 'Series A',
     admin: {
@@ -93,7 +93,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       companyName: 'Test Company A',
       location: 'US',
       remoteWorkPolicy: '',
-      companySize: '100',
+      companySize: 100,
       url: 'https://test.com',
       fundingStage: 'Series A',
       admin: {
@@ -109,7 +109,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       companyName: 'Test Company B',
       location: 'UK',
       remoteWorkPolicy: '',
-      companySize: '110',
+      companySize: 110,
       url: 'https://test.com',
       fundingStage: 'Series D',
       admin: {
@@ -125,7 +125,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       companyName: 'Test Company C',
       location: 'CA',
       remoteWorkPolicy: '',
-      companySize: '30',
+      companySize: 30,
       url: 'https://test.com',
       fundingStage: 'Series B',
       admin: {
