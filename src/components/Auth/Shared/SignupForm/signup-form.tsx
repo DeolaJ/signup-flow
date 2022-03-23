@@ -167,6 +167,7 @@ const SignupForm: FC = () => {
           adminEmail,
           adminName,
         } = values;
+        // TODO: Handle loggedIn user updates
         const userDetails = {
           id: companyID,
           companyName,
