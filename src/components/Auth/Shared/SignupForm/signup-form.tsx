@@ -206,7 +206,7 @@ const SignupForm: FC = () => {
             )}
           </p>
 
-          <h4>Basic Section</h4>
+          <h3>Basic Section</h3>
 
           <InputContainer>
             <InputField
@@ -291,7 +291,7 @@ const SignupForm: FC = () => {
           <InputContainer>
             <InputField
               label="Company URL"
-              placeholder="Enter company website URL"
+              placeholder="Enter company website"
               name="url"
               type="text"
               value={values.url}
@@ -302,7 +302,7 @@ const SignupForm: FC = () => {
 
           <br />
 
-          <h4>Admin Section</h4>
+          <h3>Admin Section</h3>
 
           <InputContainer>
             <InputField
