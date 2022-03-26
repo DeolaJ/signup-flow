@@ -32,3 +32,17 @@ export function loadUserState(): UserState | null {
     return null;
   }
 }
+
+export const scrollToLastRole = (): void => {
+  return document.getElementById('add-role-form-title')?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center',
+  });
+};
+
+export const scrollToTop = (): void => {
+  return document.body?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start',
+  });
+};
