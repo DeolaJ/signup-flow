@@ -8,6 +8,7 @@ const GlobalStyles = createGlobalStyle`
     --color-orange: #EE6F56;
     --color-black: #020209;
     --color-blue: #7576FE;
+    --color-light-blue: #F5F5FF;
     --color-red: #FF4343;
     --color-divider: #F8F8F9;
     --color-grey: #7D7A80;
