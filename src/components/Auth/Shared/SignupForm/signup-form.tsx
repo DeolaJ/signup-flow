@@ -218,7 +218,6 @@ const SignupForm: FC<SignupFormProps> = ({ nextStage }) => {
           };
         }
         try {
-          console.log({ userDetails });
           if (!loggedInUser) {
             setIsCreatingAccount(true);
             dispatch(doSignupUser(userDetails, values.companyID));
