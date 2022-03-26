@@ -26,7 +26,7 @@ export const mockUserNotEmpty: UserState = {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     },
     1234: {
       id: '1234',
@@ -42,7 +42,7 @@ export const mockUserNotEmpty: UserState = {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     },
     12345: {
       id: '12345',
@@ -58,7 +58,7 @@ export const mockUserNotEmpty: UserState = {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     },
   },
   roles: {
@@ -84,7 +84,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
     },
     createdAt: new Date().toJSON(),
     updatedAt: new Date().toJSON(),
-    verfied: true,
+    verified: true,
     roles: Object.values(mockRoles),
   },
   users: {
@@ -102,7 +102,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     },
     1234: {
       id: '1234',
@@ -118,7 +118,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     },
     12345: {
       id: '12345',
@@ -134,7 +134,7 @@ export const mockUserNotEmptyLoggedIn: UserState = {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     },
   },
   roles: {
