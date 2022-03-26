@@ -37,13 +37,20 @@ const userSlice = createSlice({
         userID,
       } = action.payload;
       if (state.isLoggedIn) {
+        let newUser = userInfo;
+        if (!state.user?.verified) {
+          newUser = {
+            ...userInfo,
+            verified: true,
+          };
+        }
         state.user = {
-          ...userInfo,
+          ...newUser,
           roles,
         };
         state.users = {
           ...state.users,
-          [userID]: userInfo,
+          [userID]: newUser,
         };
         state.roles = {
           ...state.roles,
