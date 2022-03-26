@@ -20,7 +20,6 @@ export type FormState = {
     };
     roleIDs: Array<string>;
   };
-  userID: string;
 };
 
 export type ErrorState = {
@@ -48,7 +47,7 @@ export type UserType = {
   admin?: AdminType;
   createdAt?: string;
   updatedAt?: string;
-  verfied?: boolean;
+  verified?: boolean;
 };
 
 export type AdminType = {
@@ -63,6 +62,7 @@ export interface LoggedInUserType extends UserType {
 export type RoleType = {
   id: string;
   title: string;
+  salary: number;
   division: string;
   location: string;
   yearsOfExperience: number;
