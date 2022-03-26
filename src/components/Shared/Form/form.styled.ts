@@ -5,6 +5,14 @@ export const FormContainer = styled.form`
   width: 100%;
   margin: 0 auto;
 
+  &.role-form {
+    margin: 0;
+    max-width: 600px;
+    padding: 0.5rem 1.5rem 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--color-divider);
+  }
+
   > h2,
   > p {
     margin: 0;
@@ -43,6 +51,15 @@ export const FormContainer = styled.form`
     height: auto;
   }
 
+  .edit-company-information {
+    color: var(--color-purple);
+    margin-bottom: 1.875rem;
+    font-size: 1.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #dbe4f5;
+    line-height: 2.25rem;
+  }
+
   @media (min-width: 768px) {
     h2 {
       font-size: 2.25rem;
@@ -57,17 +74,10 @@ export const FormContainer = styled.form`
       text-align: left;
     }
 
-    .social_login--buttons > div {
-      display: flex;
-
-      button {
-        width: auto;
-        min-width: 16rem;
-      }
-
-      > * + * {
-        margin-top: initial;
-      }
+    .edit-company-information {
+      margin-bottom: 2.25rem;
+      font-size: 2rem;
+      padding-bottom: 1rem;
     }
   }
 `;
@@ -82,16 +92,19 @@ export const InputContainer = styled.div`
     margin-top: 0;
   }
 
+  .job-description-type__label {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    color: var(--color-black);
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.625rem;
+  }
+
   @media (min-width: 768px) {
     + div,
     &.mt-6 {
       margin-top: 1.25rem;
     }
   }
-`;
-
-export const FormError = styled.p`
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  color: var(--color-red);
 `;

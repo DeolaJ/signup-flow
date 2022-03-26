@@ -1,12 +1,13 @@
 import { FC } from 'react';
 import DashboardNav from './Shared/DashboardNav';
+
 import { DashboardContainer, DashboardBody } from './dashboard.styled';
 
-const Dashboard: FC = () => {
+const Dashboard: FC = ({ children }) => {
   return (
     <DashboardContainer>
       <DashboardNav />
-      <DashboardBody>You are logged in</DashboardBody>
+      <DashboardBody>{children}</DashboardBody>
     </DashboardContainer>
   );
 };

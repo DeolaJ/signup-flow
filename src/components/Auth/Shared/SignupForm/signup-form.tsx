@@ -14,9 +14,10 @@ import { selectIsLoggedIn, selectUser, selectUsers } from '../../../../store/sel
 
 import { doSignupUser } from '../../../../store/actions/user';
 
-import { FormContainer, InputContainer, FormError } from '../../../Shared/Form/form.styled';
-import { ErrorMessageType } from '../../../../types';
+import { FormContainer, InputContainer } from '../../../Shared/Form/form.styled';
+import { LoggedInUserType } from '../../../../types';
 import { isUserValid } from '../../../../helpers';
+import { doUpdateUserInfo } from '../../../../store/actions/form';
 
 const fundingStages = [
   {
@@ -53,7 +54,11 @@ const fundingStages = [
   },
 ];
 
-const SignupForm: FC = () => {
+type SignupFormProps = {
+  nextStage?: () => void;
+};
+
+const SignupForm: FC<SignupFormProps> = ({ nextStage }) => {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
   const loggedInUser = useSelector(selectUser);
@@ -61,7 +66,7 @@ const SignupForm: FC = () => {
 
   const [isCreatingAccount, setIsCreatingAccount] = useState(false);
 
-  const initialValues = {
+  const defaultValues = {
     companyID: '',
     companyName: '',
     location: '',
@@ -72,26 +77,35 @@ const SignupForm: FC = () => {
     adminEmail: '',
     adminName: '',
   };
-  const signupErrorMessage: ErrorMessageType = {
-    errorMessages: {},
-    errorFields: [],
-    hasError: false,
+
+  const extractUserData = (user: LoggedInUserType) => {
+    const { id, companyName, location, remoteWorkPolicy, companySize, fundingStage, url, admin } =
+      user;
+    return {
+      companyID: id || '',
+      companyName: companyName || '',
+      location: location || '',
+      remoteWorkPolicy: remoteWorkPolicy || '',
+      companySize: companySize || 0,
+      fundingStage: fundingStage || '',
+      url: url || '',
+      adminEmail: admin?.emailAddress || '',
+      adminName: admin?.name || '',
+    };
   };
 
-  const errorCheck = (key: string, value: string | boolean | number, error: string | undefined) => {
+  const initialValues = isLoggedIn && loggedInUser ? extractUserData(loggedInUser) : defaultValues;
+
+  const errorCheck = (value: string | boolean | number, error: string | undefined) => {
     if (value) {
-      return signupErrorMessage.errorFields.includes(key) || error !== undefined;
+      return error !== undefined;
     }
     return false;
   };
 
-  const errorMessage = (
-    key: string,
-    value: string | boolean | number,
-    error: string | undefined
-  ) => {
+  const errorMessage = (value: string | boolean | number, error: string | undefined) => {
     if (value) {
-      return signupErrorMessage.errorMessages?.[key] || (error !== undefined ? error : '');
+      return error !== undefined ? error : '';
     }
     return '';
   };
@@ -155,7 +169,7 @@ const SignupForm: FC = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={SignUpSchema}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         const {
           companyID,
           companyName,
@@ -167,26 +181,60 @@ const SignupForm: FC = () => {
           adminEmail,
           adminName,
         } = values;
-        // TODO: Handle loggedIn user updates
-        const userDetails = {
-          id: companyID,
-          companyName,
-          location,
-          remoteWorkPolicy,
-          companySize,
-          fundingStage,
-          url,
-          createdAt: new Date().toJSON(),
-          updatedAt: new Date().toJSON(),
-          admin: {
-            emailAddress: adminEmail,
-            name: adminName,
-          },
-          verified: false,
-        };
-        setIsCreatingAccount(true);
-        dispatch(doSignupUser(userDetails, values.companyID));
-        setIsCreatingAccount(false);
+        let userDetails;
+        if (!loggedInUser) {
+          userDetails = {
+            id: companyID,
+            companyName,
+            location,
+            remoteWorkPolicy,
+            companySize,
+            fundingStage,
+            url,
+            createdAt: new Date().toJSON(),
+            updatedAt: new Date().toJSON(),
+            admin: {
+              emailAddress: adminEmail,
+              name: adminName,
+            },
+            verified: false,
+          };
+        } else {
+          userDetails = {
+            id: companyID,
+            companyName,
+            location,
+            remoteWorkPolicy,
+            companySize,
+            fundingStage,
+            url,
+            createdAt: loggedInUser?.createdAt,
+            updatedAt: new Date().toJSON(),
+            admin: {
+              emailAddress: adminEmail,
+              name: adminName,
+            },
+            verified: loggedInUser?.verified,
+          };
+        }
+        try {
+          console.log({ userDetails });
+          if (!loggedInUser) {
+            setIsCreatingAccount(true);
+            dispatch(doSignupUser(userDetails, values.companyID));
+          } else {
+            dispatch(doUpdateUserInfo(userDetails));
+            nextStage?.();
+          }
+        } catch {
+          if (!loggedInUser) {
+            setIsCreatingAccount(false);
+          }
+        } finally {
+          if (!loggedInUser) {
+            setIsCreatingAccount(false);
+          }
+        }
       }}>
       {({ errors, values, handleSubmit }) => (
         <FormContainer
@@ -194,17 +242,15 @@ const SignupForm: FC = () => {
             e.preventDefault();
             handleSubmit();
           }}
-          className="signup-form">
-          <h2>
-            <span className="--desktop-only">To set up your company account, please sign up</span>
-            <span className="--mobile-only">Create company account</span>
-          </h2>
-
-          <p>
-            {signupErrorMessage.hasError && (
-              <FormError>{signupErrorMessage || 'There was an error'}</FormError>
-            )}
-          </p>
+          className={`signup-form ${isLoggedIn ? 'logged-in' : ''}`}>
+          {!isLoggedIn ? (
+            <h2>
+              <span className="--desktop-only">To set up your company account, please sign up</span>
+              <span className="--mobile-only">Create company account</span>
+            </h2>
+          ) : (
+            <h2 className="edit-company-information">Edit Company Information</h2>
+          )}
 
           <h3>Basic Section</h3>
 
@@ -215,8 +261,8 @@ const SignupForm: FC = () => {
               name="companyID"
               type="text"
               value={values.companyID}
-              error={errorCheck('companyID', values.companyID, errors.companyID)}
-              errorMessage={errorMessage('companyID', values.companyID, errors.companyID)}
+              error={errorCheck(values.companyID, errors.companyID)}
+              errorMessage={errorMessage(values.companyID, errors.companyID)}
             />
           </InputContainer>
 
@@ -227,8 +273,8 @@ const SignupForm: FC = () => {
               name="companyName"
               type="text"
               value={values.companyName}
-              error={errorCheck('companyName', values.companyName, errors.companyName)}
-              errorMessage={errorMessage('companyName', values.companyName, errors.companyName)}
+              error={errorCheck(values.companyName, errors.companyName)}
+              errorMessage={errorMessage(values.companyName, errors.companyName)}
             />
           </InputContainer>
 
@@ -239,8 +285,8 @@ const SignupForm: FC = () => {
               name="location"
               type="text"
               value={values.location}
-              error={errorCheck('location', values.location, errors.location)}
-              errorMessage={errorMessage('location', values.location, errors.location)}
+              error={errorCheck(values.location, errors.location)}
+              errorMessage={errorMessage(values.location, errors.location)}
             />
           </InputContainer>
 
@@ -251,16 +297,8 @@ const SignupForm: FC = () => {
               name="remoteWorkPolicy"
               type="text"
               value={values.remoteWorkPolicy}
-              error={errorCheck(
-                'remoteWorkPolicy',
-                values.remoteWorkPolicy,
-                errors.remoteWorkPolicy
-              )}
-              errorMessage={errorMessage(
-                'remoteWorkPolicy',
-                values.remoteWorkPolicy,
-                errors.remoteWorkPolicy
-              )}
+              error={errorCheck(values.remoteWorkPolicy, errors.remoteWorkPolicy)}
+              errorMessage={errorMessage(values.remoteWorkPolicy, errors.remoteWorkPolicy)}
             />
           </InputContainer>
 
@@ -271,8 +309,8 @@ const SignupForm: FC = () => {
               name="companySize"
               type="number"
               value={values.companySize}
-              error={errorCheck('companySize', values.companySize, errors.companySize)}
-              errorMessage={errorMessage('companySize', values.companySize, errors.companySize)}
+              error={errorCheck(values.companySize, errors.companySize)}
+              errorMessage={errorMessage(values.companySize, errors.companySize)}
             />
           </InputContainer>
 
@@ -283,8 +321,8 @@ const SignupForm: FC = () => {
               name="fundingStage"
               options={fundingStages}
               value={values.fundingStage}
-              error={errorCheck('fundingStage', values.fundingStage, errors.fundingStage)}
-              errorMessage={errorMessage('fundingStage', values.fundingStage, errors.fundingStage)}
+              error={errorCheck(values.fundingStage, errors.fundingStage)}
+              errorMessage={errorMessage(values.fundingStage, errors.fundingStage)}
             />
           </InputContainer>
 
@@ -295,8 +333,8 @@ const SignupForm: FC = () => {
               name="url"
               type="text"
               value={values.url}
-              error={errorCheck('url', values.url, errors.url)}
-              errorMessage={errorMessage('url', values.url, errors.url)}
+              error={errorCheck(values.url, errors.url)}
+              errorMessage={errorMessage(values.url, errors.url)}
             />
           </InputContainer>
 
@@ -311,8 +349,8 @@ const SignupForm: FC = () => {
               name="adminEmail"
               type="email"
               value={values.adminEmail}
-              error={errorCheck('adminEmail', values.adminEmail, errors.adminEmail)}
-              errorMessage={errorMessage('adminEmail', values.adminEmail, errors.adminEmail)}
+              error={errorCheck(values.adminEmail, errors.adminEmail)}
+              errorMessage={errorMessage(values.adminEmail, errors.adminEmail)}
             />
           </InputContainer>
 
@@ -323,21 +361,28 @@ const SignupForm: FC = () => {
               name="adminName"
               type="text"
               value={values.adminName}
-              error={errorCheck('adminName', values.adminName, errors.adminName)}
-              errorMessage={errorMessage('adminName', values.adminName, errors.adminName)}
+              error={errorCheck(values.adminName, errors.adminName)}
+              errorMessage={errorMessage(values.adminName, errors.adminName)}
             />
           </InputContainer>
 
           <SecondaryButton
             className="signup-button"
-            disabled={isEqual(values, initialValues) || Object.keys(errors || {}).length > 0}
-            text={
-              <>
-                {isCreatingAccount && <Loader light />}
-                {isCreatingAccount ? 'Creating' : 'Create'} Account
-              </>
+            disabled={
+              (!isLoggedIn && isEqual(values, initialValues)) ||
+              Object.keys(errors || {}).length > 0
             }
-            size="lg"
+            text={
+              !isLoggedIn ? (
+                <>
+                  {isCreatingAccount && <Loader light />}
+                  {isCreatingAccount ? 'Creating' : 'Create'} Account
+                </>
+              ) : (
+                'Next'
+              )
+            }
+            size={!isLoggedIn ? 'lg' : 'sm'}
             type="submit"
           />
         </FormContainer>
