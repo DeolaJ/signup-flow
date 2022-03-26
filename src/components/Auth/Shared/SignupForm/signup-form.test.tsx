@@ -5,13 +5,10 @@ import SignupForm from './signup-form';
 // Ignoring accessibility tests for React Select library
 jest.mock('react-select', () => () => (
   <>
-    <label htmlFor="mockedReactSelect">Funding Stage</label>
+    <label htmlFor="mockedReactSelect">Select</label>
     <select id="mockedReactSelect" onChange={() => null}>
-      <option value="Seed">Pre-Seed</option>
-      <option value="Seed">Seed</option>
-      <option value="Seed">Series A</option>
-      <option value="Seed">Series B</option>
-      <option value="Seed">Series C</option>
+      <option value="Option 1">Option 1</option>
+      <option value="Option 2">Option 2</option>
     </select>
   </>
 ));
@@ -28,31 +25,4 @@ describe('Signup Form', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
-
-  // test('signup button should be clickable when all fields have values', async () => {
-  //   const { getByLabelText, getByTestId, getByText } = render(<SignupForm />);
-  //   const companyIDField = getByLabelText('Company ID/Username');
-  //   const companyNameField = getByLabelText('Company Name');
-  //   const locationField = getByLabelText('Location');
-  //   const remoteWorkField = getByLabelText('Remote Work Policy');
-  //   const companySizeField = getByLabelText('Company Size');
-  //   const fundingStageField = getByTestId('mockedReactSelect');
-  //   const companyURLField = getByLabelText('Company URL');
-  //   const adminEmailField = getByLabelText('Admin Email');
-  //   const adminNameField = getByLabelText('Admin Name');
-  //   const submitButton = getByText('Create Account');
-  //   expect(submitButton).toHaveClass('disabled');
-
-  //   userEvent.type(companyIDField, 'adeola');
-  //   userEvent.type(companyNameField, 'Dee Ventures');
-  //   userEvent.type(locationField, 'NGA');
-  //   userEvent.type(remoteWorkField, 'Remote');
-  //   fireEvent.change(companySizeField, { target: { value: 0 } });
-  //   userEvent.selectOptions(fundingStageField, 'Seed');
-  //   userEvent.type(companyURLField, 'https://deolaj.com');
-  //   userEvent.type(adminEmailField, 'adeola@deolaj.com');
-  //   userEvent.type(adminNameField, 'Adeola');
-
-  //   expect(submitButton).not.toHaveClass('disabled');
-  // });
 });
