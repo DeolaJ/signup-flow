@@ -6,6 +6,7 @@ export const mockRoles: {
   1: {
     id: '1',
     title: 'Role A',
+    salary: 130000,
     division: '',
     location: 'NGA',
     yearsOfExperience: 3,
@@ -16,6 +17,7 @@ export const mockRoles: {
   2: {
     id: '2',
     title: 'Role B',
+    salary: 100000,
     division: '',
     location: 'US',
     yearsOfExperience: 4,
@@ -26,6 +28,7 @@ export const mockRoles: {
   3: {
     id: '3',
     title: 'Role C',
+    salary: 140000,
     division: '',
     location: 'UK',
     yearsOfExperience: 2,
@@ -36,6 +39,7 @@ export const mockRoles: {
   4: {
     id: '4',
     title: 'Role D',
+    salary: 230000,
     division: '',
     location: 'CA',
     yearsOfExperience: 3,
@@ -46,6 +50,7 @@ export const mockRoles: {
   5: {
     id: '5',
     title: 'Role E',
+    salary: 70000,
     division: '',
     location: 'SF',
     yearsOfExperience: 5,
@@ -56,6 +61,7 @@ export const mockRoles: {
   12345: {
     id: '12345',
     title: 'Role ABCDE',
+    salary: 90000,
     division: '',
     location: 'NGA',
     yearsOfExperience: 1,

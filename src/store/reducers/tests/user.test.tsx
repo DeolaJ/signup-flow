@@ -23,7 +23,7 @@ describe('Creating User', () => {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: false,
+      verified: false,
     };
     const newUserData = {
       userInfo: newUser,
@@ -58,7 +58,7 @@ describe('Updating User', () => {
       },
       createdAt: new Date().toJSON(),
       updatedAt: new Date().toJSON(),
-      verfied: true,
+      verified: true,
     };
     const updatedUserRoles: RoleType[] = Object.values(mockRoles);
     const updatedUserData = {

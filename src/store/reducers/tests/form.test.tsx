@@ -16,6 +16,7 @@ test('should return the initial state', () => {
 describe('Updating User Information', () => {
   test('should handle a user information being updated', () => {
     const modifiedFields = {
+      ...mockForm.userInfo,
       companyName: 'Test Company - new',
       location: 'USA',
       remoteWorkPolicy: '',
@@ -27,7 +28,7 @@ describe('Updating User Information', () => {
         emailAddress: 'adeola@test.com',
       },
     };
-    expect(reducer(mockForm, updateUserInfo({ fields: modifiedFields }))).toEqual({
+    expect(reducer(mockForm, updateUserInfo({ userDetails: modifiedFields }))).toEqual({
       ...mockForm,
       userInfo: {
         ...mockForm.userInfo,
@@ -42,6 +43,7 @@ describe('Adding Roles', () => {
     const newRole: RoleType = {
       id: '123456',
       title: 'Role ABCDEF',
+      salary: 150000,
       division: '',
       location: 'CO',
       yearsOfExperience: 2,
@@ -67,6 +69,7 @@ describe('Editing existing Roles', () => {
     const role: RoleType = {
       id: '1',
       title: 'Role A -- C',
+      salary: 200000,
       division: '',
       location: 'US',
       yearsOfExperience: 5,

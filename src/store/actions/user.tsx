@@ -1,9 +1,13 @@
+import { NavigateFunction } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { isUserValid } from '../../helpers';
+
+import { resetForm } from '../reducers/form';
+import { loginUser, logoutUser, createUser, modifyUser } from '../reducers/user';
+
+import { isUserValid, scrollToTop } from '../../helpers';
 import { LoginDetailsType, StateType, UserType } from '../../types';
-import { loginUser, logoutUser, createUser } from '../reducers/user';
 
 export function doSignupUser(
   userInfo: UserType,
@@ -67,6 +71,43 @@ export function doLogoutUser(): ThunkAction<void, StateType, unknown, AnyAction>
       dispatch(logoutUser());
       toast.dismiss(toastId);
       toast.success('Successfully logged out');
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error('An error occurred. Please retry');
+    }
+  };
+}
+
+export function doSubmitNewUser(
+  navigate: NavigateFunction
+): ThunkAction<void, StateType, unknown, AnyAction> {
+  return async (dispatch, getState) => {
+    const toastId = toast.loading('Updating company information...');
+    const {
+      userInfo,
+      roles: { data, roleIDs },
+    } = getState().form;
+    const { user } = getState().user;
+
+    let modifiedUser = userInfo;
+    let userID = userInfo?.id;
+    if (!Object.keys(userInfo || {}).length && user) {
+      modifiedUser = user;
+      userID = user?.id;
+    }
+
+    try {
+      dispatch(
+        modifyUser({
+          userData: { userInfo: modifiedUser, roles: roleIDs.map((roleID) => data[roleID]) },
+          userID,
+        })
+      );
+      dispatch(resetForm());
+      navigate('/dashboard', { replace: true });
+      scrollToTop();
+      toast.dismiss(toastId);
+      toast.success('Successfully updated company information');
     } catch (error) {
       toast.dismiss(toastId);
       toast.error('An error occurred. Please retry');

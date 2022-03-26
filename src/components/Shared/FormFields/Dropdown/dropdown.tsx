@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 import Select, { OptionsOrGroups, GroupBase } from 'react-select';
 
@@ -29,16 +29,23 @@ const DropdownField: FC<DropdownFieldProps> = ({
   full,
 }) => {
   const { setFieldValue } = useFormikContext();
+  const [resetKey, setResetKey] = useState(0);
   const defaultValue = {
     value,
     label: value,
   };
 
+  useEffect(() => {
+    if (!value) {
+      setResetKey((prevResetKey) => prevResetKey + 1);
+    }
+  }, [value]);
+
   return (
     <>
       {label && <DropdownLabel>{label}</DropdownLabel>}
 
-      <DropdownWrapper className={`${error ? 'error' : ''} ${full ? 'full' : ''}`}>
+      <DropdownWrapper className={`${error ? 'error' : ''} ${full ? 'full' : ''}`} key={resetKey}>
         <Select
           options={options}
           defaultValue={value ? defaultValue : undefined}

@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Login from './src/components/Auth/Login';
 import Signup from './src/components/Auth/Signup';
-import Dashboard from './src/components/Dashboard';
+import Dashboard from './src/components/Dashboard/Home';
+import Onboarding from './src/components/Dashboard/Onboarding';
 
 import NotificationBanner from './src/components/Shared/NotificationBanner';
 import PublicRoute from './src/components/Shared/Router/public-route';
@@ -40,6 +41,14 @@ function App(): ReactElement {
               element={
                 <PrivateRoute>
                   <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/dashboard/onboarding"
+              element={
+                <PrivateRoute>
+                  <Onboarding />
                 </PrivateRoute>
               }
             />

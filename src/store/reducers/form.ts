@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { scrollToLastRole } from '../../helpers';
 import { FormState, RoleType } from '../../types';
 
 export const defaultState: FormState = {
-  userID: '',
   userInfo: {},
   roles: {
     data: {},
@@ -15,16 +15,14 @@ const formSlice = createSlice({
   initialState: defaultState,
   reducers: {
     updateUserInfo: (state, action) => {
-      const { fields } = action.payload;
-      state.userInfo = {
-        ...state.userInfo,
-        ...fields,
-      };
+      const { userDetails } = action.payload;
+      state.userInfo = userDetails;
     },
     addUserRole: (state, action: PayloadAction<{ role: RoleType }>) => {
       const { role } = action.payload;
       state.roles.data[role.id] = role;
       state.roles.roleIDs.push(role.id);
+      scrollToLastRole();
     },
     editUserRole: (state, action) => {
       const { role } = action.payload;
@@ -41,11 +39,24 @@ const formSlice = createSlice({
         roleIDs: [],
       };
     },
+    resetForm: (state) => {
+      state.userInfo = {};
+      state.roles = {
+        data: {},
+        roleIDs: [],
+      };
+    },
   },
 });
 
 const { reducer } = formSlice;
 
-export const { updateUserInfo, addUserRole, editUserRole, removeUserRole, clearUserRoles } =
-  formSlice.actions;
+export const {
+  updateUserInfo,
+  addUserRole,
+  editUserRole,
+  removeUserRole,
+  clearUserRoles,
+  resetForm,
+} = formSlice.actions;
 export default reducer;

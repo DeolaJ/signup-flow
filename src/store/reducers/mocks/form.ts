@@ -2,7 +2,6 @@ import { FormState } from '../../../types';
 import { mockRoles } from './roles';
 
 export const mockForm: FormState = {
-  userID: '12345',
   userInfo: {
     id: '12345',
     companyName: 'Test Company',
@@ -15,6 +14,7 @@ export const mockForm: FormState = {
       name: 'Adeola',
       emailAddress: 'adeola@test.com',
     },
+    verified: false,
   },
   roles: {
     data: {},
@@ -23,7 +23,6 @@ export const mockForm: FormState = {
 };
 
 export const mockFormWithRoles: FormState = {
-  userID: '12345',
   userInfo: {
     id: '12345',
     companyName: 'Test Company',
@@ -36,6 +35,7 @@ export const mockFormWithRoles: FormState = {
       name: 'Adeola',
       emailAddress: 'adeola@test.com',
     },
+    verified: true,
   },
   roles: {
     data: mockRoles,
