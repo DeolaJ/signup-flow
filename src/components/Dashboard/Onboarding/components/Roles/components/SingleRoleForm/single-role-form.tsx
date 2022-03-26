@@ -114,7 +114,7 @@ const SingleRoleForm: FC<SingleRoleFormProps> = ({ activeRole, cancelEditing }) 
       )
       .required('Required'),
     salary: Yup.number()
-      .min(0, 'A valid salary is more than 0')
+      .min(1, 'A valid salary is more than 0')
       .max(1000000000, 'Please enter a valid salary')
       .required('Required'),
     division: Yup.string()
