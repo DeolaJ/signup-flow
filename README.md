@@ -45,6 +45,7 @@ To run these tests
 
 - A simple company verification, based on adding roles, was implemented to enforce the onboarding flow
 - This implementation covers showing the company information and does not cover editing existing company information
+- LocalStorage was used to simulate an database experience. Clear the userState in the localStorage to restart the database.
 - Check the `docs/initialState.md` file to understand the StateType.
 - User interface was largely improvised
 - Types could be greatly improved
