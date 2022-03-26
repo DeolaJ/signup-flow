@@ -18,6 +18,7 @@ import { FormContainer, InputContainer } from '../../../Shared/Form/form.styled'
 import { LoggedInUserType } from '../../../../types';
 import { isUserValid } from '../../../../helpers';
 import { doUpdateUserInfo } from '../../../../store/actions/form';
+import countries from '../../../../constants/countries';
 
 const fundingStages = [
   {
@@ -146,9 +147,10 @@ const SignupForm: FC<SignupFormProps> = ({ nextStage }) => {
     fundingStage: Yup.string().required('Required'),
     url: Yup.string()
       .test('check-url', 'Please enter a valid url', function (value) {
-        return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(
-          value || ''
+        const urlCheck = new RegExp(
+          /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi
         );
+        return Boolean((value || '').match(urlCheck));
       })
       .required('Required'),
     adminEmail: Yup.string().email('Please enter a valid email').required('Required'),
@@ -278,11 +280,11 @@ const SignupForm: FC<SignupFormProps> = ({ nextStage }) => {
           </InputContainer>
 
           <InputContainer>
-            <InputField
+            <DropdownField
               label="Location"
               placeholder="Where is the company situated?"
               name="location"
-              type="text"
+              options={countries}
               value={values.location}
               error={errorCheck(values.location, errors.location)}
               errorMessage={errorMessage(values.location, errors.location)}
