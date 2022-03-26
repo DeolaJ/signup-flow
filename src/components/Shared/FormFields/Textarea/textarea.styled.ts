@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TextareaLabel = styled.label`
   font-size: 0.875rem;
   line-height: 1.125rem;
-  color: var(--color-input-black);
+  color: var(--color-black);
   display: block;
   font-weight: 500;
   margin-bottom: 0.625rem;
@@ -13,12 +13,12 @@ export const TextareaWrapper = styled.div`
   position: relative;
 
   textarea {
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     line-height: 1rem;
     font-weight: 500;
-    color: var(--color-input-black);
+    color: var(--color-black);
     background: transparent;
-    padding: 1rem 1.5rem;
+    padding: 0.875rem 1.125rem;
     width: 100%;
     outline: none;
     border: 0.7px solid var(--color-light-grey);
@@ -31,8 +31,8 @@ export const TextareaWrapper = styled.div`
 
     &:focus {
       border-color: transparent;
-      outline: 3px solid var(--color-light-blue);
-      outline-offset: -3px;
+      outline: 2px solid var(--color-light-grey);
+      outline-offset: -2px;
     }
 
     &:-webkit-autofill,
@@ -56,7 +56,7 @@ export const TextareaWrapper = styled.div`
 
 export const TextareaError = styled.p`
   color: var(--color-red);
-  font-size: 1rem;
-  line-height: 1.125rem;
-  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
 `;
