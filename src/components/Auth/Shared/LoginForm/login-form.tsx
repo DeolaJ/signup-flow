@@ -11,8 +11,7 @@ import BareButton from '../../../Shared/Button/BareButton';
 
 import { doLoginUser } from '../../../../store/actions/user';
 
-import { FormContainer, InputContainer, FormError } from '../../../Shared/Form/form.styled';
-import { ErrorMessageType } from '../../../../types';
+import { FormContainer, InputContainer } from '../../../Shared/Form/form.styled';
 
 const LoginSchema = Yup.object().shape({
   companyID: Yup.string().required('Required'),
@@ -27,14 +26,10 @@ const LoginForm: FC = () => {
     companyID: '',
     adminEmail: '',
   };
-  const loginErrorMessage: ErrorMessageType = {
-    errorFields: [],
-    hasError: false,
-  };
 
-  const errorCheck = (key: string, value: string, error: string | undefined) => {
+  const errorCheck = (value: string, error: string | undefined) => {
     if (value) {
-      return loginErrorMessage.errorFields.includes(key) || error !== undefined;
+      return error !== undefined;
     }
     return false;
   };
@@ -66,12 +61,6 @@ const LoginForm: FC = () => {
           }}>
           <h2>Log In to your account.</h2>
 
-          <p>
-            {loginErrorMessage.hasError && (
-              <FormError>{loginErrorMessage || 'There was an error'}</FormError>
-            )}
-          </p>
-
           <InputContainer>
             <InputField
               label="Company ID/Username"
@@ -79,7 +68,7 @@ const LoginForm: FC = () => {
               name="companyID"
               type="text"
               value={values.companyID}
-              error={errorCheck('companyID', values.companyID, errors.companyID)}
+              error={errorCheck(values.companyID, errors.companyID)}
             />
           </InputContainer>
 
@@ -90,7 +79,7 @@ const LoginForm: FC = () => {
               name="adminEmail"
               type="email"
               value={values.adminEmail}
-              error={errorCheck('adminEmail', values.adminEmail, errors.adminEmail)}
+              error={errorCheck(values.adminEmail, errors.adminEmail)}
             />
           </InputContainer>
 
