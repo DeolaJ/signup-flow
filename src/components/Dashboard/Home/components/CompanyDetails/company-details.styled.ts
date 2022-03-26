@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const CompanyDetailsContainer = styled.section`
-  padding: 0 1.5rem;
-
   > h2 {
     color: var(--color-purple);
     margin-bottom: 1.25rem;
@@ -17,6 +15,8 @@ export const CompanyDetailsContainer = styled.section`
   }
 
   @media (min-width: 768px) {
+    padding: 0 1.5rem;
+
     > h2 {
       font-size: 2.25rem;
       line-height: 2.5rem;

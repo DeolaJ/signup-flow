@@ -1,6 +1,6 @@
 import { axe, toHaveNoViolations } from 'jest-axe';
-import { render } from '.././../../../helpers/test-helpers';
-import SignupForm from './signup-form';
+import { render } from '../../../../../../../helpers/test-helpers';
+import SingleRoleForm from './single-role-form';
 
 // Ignoring accessibility tests for React Select library
 jest.mock('react-select', () => () => (
@@ -15,13 +15,13 @@ jest.mock('react-select', () => () => (
 
 expect.extend(toHaveNoViolations);
 
-describe('Signup Form', () => {
-  test('Renders Signup form', () => {
-    render(<SignupForm />);
+describe('Single Role Form', () => {
+  test('Renders Single Role form', () => {
+    render(<SingleRoleForm />);
   });
 
-  test('Signup Form is accessible', async () => {
-    const { container } = render(<SignupForm />);
+  test('Single Role Form is accessible', async () => {
+    const { container } = render(<SingleRoleForm />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
