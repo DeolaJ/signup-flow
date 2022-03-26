@@ -300,7 +300,7 @@ const SingleRoleForm: FC<SingleRoleFormProps> = ({ activeRole, cancelEditing }) 
           {descriptionType === 'file' && (
             <InputContainer>
               <UploadField
-                label="Job description (.md or .txt)"
+                label="Job description (.md or .txt, and less than 2MB)"
                 name="jobDescription"
                 value={values.jobDescription}
                 error={errorCheck(values.jobDescription, errors.jobDescription)}
