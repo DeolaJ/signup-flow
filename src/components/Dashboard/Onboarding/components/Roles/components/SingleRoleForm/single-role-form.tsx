@@ -15,6 +15,7 @@ import { FormContainer, InputContainer } from '../../../../../../Shared/Form/for
 
 import { RoleType } from '../../../../../../../types';
 import { addUserRole, editUserRole } from '../../../../../../../store/reducers/form';
+import countries from '../../../../../../../constants/countries';
 
 type SingleRoleFormProps = {
   activeRole?: RoleType;
@@ -112,7 +113,10 @@ const SingleRoleForm: FC<SingleRoleFormProps> = ({ activeRole, cancelEditing }) 
         }
       )
       .required('Required'),
-    salary: Yup.number().min(0, 'A valid salary is more than 0').required('Required'),
+    salary: Yup.number()
+      .min(0, 'A valid salary is more than 0')
+      .max(1000000000, 'Please enter a valid salary')
+      .required('Required'),
     division: Yup.string()
       .min(2, 'A valid role division has more than 2 characters')
       .max(100, 'A valid role division has less than 100 characters')
@@ -136,7 +140,8 @@ const SingleRoleForm: FC<SingleRoleFormProps> = ({ activeRole, cancelEditing }) 
       )
       .required('Required'),
     yearsOfExperience: Yup.number()
-      .max(70, 'A valid number of years of experience is at least 70')
+      .min(0, 'A valid number of years of experience is at least 0')
+      .max(70, 'A valid number of years of experience is less than 70')
       .required('Required'),
     jobDescription: Yup.string()
       .min(2, 'A valid job description has more than 2 characters')
@@ -243,11 +248,11 @@ const SingleRoleForm: FC<SingleRoleFormProps> = ({ activeRole, cancelEditing }) 
           </InputContainer>
 
           <InputContainer>
-            <InputField
+            <DropdownField
               label="Location"
               placeholder="Where is the role located?"
               name="location"
-              type="text"
+              options={countries}
               value={values.location}
               error={errorCheck(values.location, errors.location)}
               errorMessage={errorMessage(values.location, errors.location)}
